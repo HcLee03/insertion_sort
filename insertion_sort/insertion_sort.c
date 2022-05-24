@@ -43,12 +43,12 @@ void printchar(void)// 문자열 출력함수
 	}
 }
 
-void ascending(void) //오름차순 출력함수
+void ascending(void) //오름차순 정렬함수
 {
 	return;
 }
 
-void descending(void) //내림차순 출력함수
+void descending(void) //내림차순 정렬함수
 {
 	return;
 }
