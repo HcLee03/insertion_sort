@@ -4,25 +4,25 @@
 
 char Arr[16][13] = { "Sindang", "Wangsimni", "Ttukseom", "Jamsillaru", "Jamsil", "Samseong", "Yeoksam", "Gangnam", "Seocho", "Nakseongdae", "Bangbae", "Bongcheon", "Dangsan", "Hapjeong", "Ahyeon", "Chungjeongno" };
 
-void printchar(void);//¹®ÀÚ¿­ Ãâ·Â
-void ascending(void); //¿À¸§Â÷¼ø Ãâ·ÂÇÔ¼ö
-void descending(void); //³»¸²Â÷¼ø Ãâ·ÂÇÔ¼ö
-void swap(int);
+void printchar(void);//ë¬¸ìì—´ ì¶œë ¥
+void ascending(void); //ì˜¤ë¦„ì°¨ìˆœ ì •ë ¬í•¨ìˆ˜
+void descending(void); //ë‚´ë¦¼ì°¨ìˆœ ì •ë ¬í•¨ìˆ˜
+void back(int);//ë‹¨ì–´ ìˆœì„œ ë³€ê²½
 int main(void)
 {
 	printf("INSERTION SORT \n \n");
 	printf("------------------------------------------ \n");
 	printf("[Input string] : ");
-	printchar(); //¹®ÀÚ¿­ Ãâ·Â
+	printchar(); //ë¬¸ìì—´ ì¶œë ¥
 	printf("[Ascending order] : ");
-	ascending(); //¿À¸§Â÷¼ø Á¤·Ä
-	printchar(); //¹®ÀÚ¿­ Ãâ·Â
+	ascending(); //ì˜¤ë¦„ì°¨ìˆœ ì •ë ¬
+	printchar(); //ë¬¸ìì—´ ì¶œë ¥
 	printf("[Descending order ] : ");
-	descending(); //³»¸²Â÷¼ø Á¤·Ä
-	printchar(); //¹®ÀÚ¿­ Ãâ·Â
+	descending(); //ë‚´ë¦¼ì°¨ìˆœ ì •ë ¬
+	printchar(); //ë¬¸ìì—´ ì¶œë ¥
 	printf("------------------------------------------ \n \n");
 	printf("Press \"Enter\" to quit the program...: ");
-	//Enter Å° ÀÔ·Â ½Ã ÇÁ·Î±×·¥ Á¾·á
+	//Enter í‚¤ ì…ë ¥ ì‹œ í”„ë¡œê·¸ë¨ ì¢…ë£Œ
 	char c;
 	c = getchar();
 	while
@@ -31,36 +31,73 @@ int main(void)
 	return 0;
 }
 
-void printchar(void)// ¹®ÀÚ¿­ Ãâ·ÂÇÔ¼ö
+void printchar(void)// ë¬¸ìì—´ ì¶œë ¥í•¨ìˆ˜
 {
 	for (int i = 0; i < 16; i++)
 	{
 		printf("%s", Arr[i]);
 		if (i < 15)
-			printf(", ");
+		printf(", ");
 		else
-			printf("\n");
+		printf("\n");
 	}
 }
 
-void ascending(void) //¿À¸§Â÷¼ø Á¤·ÄÇÔ¼ö
+void ascending(void) //ì˜¤ë¦„ì°¨ìˆœ ì •ë ¬í•¨ìˆ˜
+{
+	char TempArr[1][13];
+	for (int i = 1; i < 16; i++)
+	{
+		for (int k = 0; k < 13; k++)
+		{
+		TempArr[0][k] = Arr[i][k];
+		}
+		printf("%s \n", TempArr[0]);
+		for (int x = 0, a = i- 1; (x < 13 && a>=-1); x++)
+		{
+		printf("%d \n", a);
+		if (a == -1)
+		{
+		for (int p = 0; p < 13; p++)
+		{
+		Arr[a + 1][p] = TempArr[0][p];
+		}
+		break;
+		}
+		else if (Arr[a][x] > TempArr[0][x])
+		{
+		back(a);
+		a--;
+		x = -1;
+		}
+		else if (Arr[a][x] == TempArr[0][x])
+		continue;
+		else
+		{
+		for (int p = 0; p < 13; p++)
+		{
+		Arr[a + 1][p] = TempArr[0][p];
+		}
+		printf("%sì„ \n", Arr[a + 1]);
+		break;
+		}
+
+		}
+
+	}
+	return;
+}
+
+void descending(void) //ë‚´ë¦¼ì°¨ìˆœ ì •ë ¬í•¨ìˆ˜
 {
 	return;
 }
 
-void descending(void) //³»¸²Â÷¼ø Á¤·ÄÇÔ¼ö
+void back(int a) //ë‹¨ì–´ ë’¤ë¡œ ì´ë™
 {
-	return;
-}
-
-void swap(int a) //´Ü¾î ¼ø¼­ º¯°æ
-{
-	char temp;
 	for (int i = 0; i < 13; i++)
 	{
-		temp = Arr[a][i];
-		Arr[a][i] = Arr[a + 1][i];
-		Arr[a + 1][i] = temp;
+		Arr[a + 1][i] = Arr[a][i];
 	}
 	return;
 }
