@@ -7,7 +7,7 @@ char Arr[16][13] = { "Sindang", "Wangsimni", "Ttukseom", "Jamsillaru", "Jamsil",
 void printchar(void);//문자열 출력
 void ascending(void); //오름차순 정렬함수
 void descending(void); //내림차순 정렬함수
-void back(int);//단어 순서 변경
+void back(int); //문자열을 현재 위치에서 한 칸 뒤로 이동
 int main(void)
 {
 	printf("INSERTION SORT \n \n");
@@ -31,7 +31,7 @@ int main(void)
 	return 0;
 }
 
-void printchar(void)// 문자열 출력함수
+void printchar(void) // 문자열 출력함수
 {
 	for (int i = 0; i < 16; i++)
 	{
@@ -46,58 +46,96 @@ void printchar(void)// 문자열 출력함수
 void ascending(void) //오름차순 정렬함수
 {
 	char TempArr[1][13];
-	for (int i = 1; i < 16; i++)
+	for (int a = 1; a < 16; a++)
 	{
-		for (int k = 0; k < 13; k++)
+		for (int k = 0; k < 13; k++) //현재 삽입할 문자열을 TempArr에 저장
 		{
-		TempArr[0][k] = Arr[i][k];
-		}
-		printf("%s \n", TempArr[0]);
-		for (int x = 0, a = i- 1; (x < 13 && a>=-1); x++)
-		{
-		printf("%d \n", a);
-		if (a == -1)
-		{
-		for (int p = 0; p < 13; p++)
-		{
-		Arr[a + 1][p] = TempArr[0][p];
-		}
-		break;
-		}
-		else if (Arr[a][x] > TempArr[0][x])
-		{
-		back(a);
-		a--;
-		x = -1;
-		}
-		else if (Arr[a][x] == TempArr[0][x])
-		continue;
-		else
-		{
-		for (int p = 0; p < 13; p++)
-		{
-		Arr[a + 1][p] = TempArr[0][p];
-		}
-		printf("%s임 \n", Arr[a + 1]);
-		break;
+			TempArr[0][k] = Arr[a][k];
 		}
 
+		//TempArr에 저장된 문자열이 있던 위치에서부터 앞으로 순차적으로 비교
+		//앞의 문자열이 더 작으면 그 문자열 뒤에 삽입
+		//반대일 경우, 앞의 문자열을 뒤로 한 칸 이동시키고 다음 문자열 비교
+		for (int step = 0, num = a - 1; (step < 13 && num>=-1); step++)
+		{
+			if (num == -1)
+			{
+				for (int p = 0; p < 13; p++)
+				{
+					Arr[num + 1][p] = TempArr[0][p];
+				}
+				break;
+			}
+			else if (Arr[num][step] > TempArr[0][step])
+			{
+				back(num);
+				num--;
+				step = -1;
+			}
+			else if (Arr[num][step] == TempArr[0][step])
+				continue;
+			else
+			{
+				for (int p = 0; p < 13; p++)
+				{
+					Arr[num + 1][p] = TempArr[0][p];
+				}
+				break;
+			}
 		}
-
 	}
 	return;
 }
 
 void descending(void) //내림차순 정렬함수
 {
+	char TempArr[1][13];
+	for (int a = 1; a < 16; a++)
+	{
+		for (int k = 0; k < 13; k++) //현재 삽입할 문자열을 TempArr에 저장
+		{
+			TempArr[0][k] = Arr[a][k];
+		}
+
+		//TempArr에 저장된 문자열이 있던 위치에서부터 앞으로 순차적으로 비교
+		//앞의 문자열이 더 크면 그 문자열 뒤에 삽입
+		//반대일 경우, 앞의 문자열을 뒤로 한 칸 이동시키고 다음 문자열 비교
+		for (int step = 0, num = a - 1; (step < 13 && num >= -1); step++)
+		{
+			if (num == -1)
+			{
+				for (int p = 0; p < 13; p++)
+				{
+					Arr[num + 1][p] = TempArr[0][p];
+				}
+				break;
+			}
+			else if (Arr[num][step] < TempArr[0][step])
+			{
+				back(num);
+				num--;
+				step = -1;
+			}
+			else if (Arr[num][step] == TempArr[0][step])
+				continue;
+			else
+			{
+				for (int p = 0; p < 13; p++)
+				{
+					Arr[num + 1][p] = TempArr[0][p];
+				}
+				break;
+			}
+		}
+	}
 	return;
 }
 
-void back(int a) //단어 뒤로 이동
+void back(int num) //문자열을 현재 위치에서 한 칸 뒤로 이동
 {
-	for (int i = 0; i < 13; i++)
+	for (int step = 0; step < 13; step++)
 	{
-		Arr[a + 1][i] = Arr[a][i];
+		Arr[num + 1][step] = Arr[num][step];
 	}
 	return;
 }
