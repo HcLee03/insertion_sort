@@ -3,8 +3,9 @@
 #include <stdio.h>
 
 char Arr[16][13] = { "Sindang", "Wangsimni", "Ttukseom", "Jamsillaru", "Jamsil", "Samseong", "Yeoksam", "Gangnam", "Seocho", "Nakseongdae", "Bangbae", "Bongcheon", "Dangsan", "Hapjeong", "Ahyeon", "Chungjeongno" };
-
+char StringArr[16][13];
 void printchar(void);//문자열 출력
+void intchar(void);//StringArr에 전역변수 배열 가져옴
 void ascending(void); //오름차순 정렬함수
 void descending(void); //내림차순 정렬함수
 void back(int); //문자열을 현재 위치에서 한 칸 뒤로 이동
@@ -13,6 +14,7 @@ int main(void)
 	printf("INSERTION SORT \n \n");
 	printf("------------------------------------------ \n");
 	printf("[Input string] : ");
+	intchar();//StringArr에 전역변수 배열 가져옴
 	printchar(); //문자열 출력
 	printf("[Ascending order] : ");
 	ascending(); //오름차순 정렬
@@ -31,11 +33,21 @@ int main(void)
 	return 0;
 }
 
+void intchar(void)//StringArr에 전역변수 배열 가져옴
+{
+	for (int num = 0; num < 16; num++)
+	{
+		for (int step = 0; step < 13; step++)
+			StringArr[num][step] = Arr[num][step];
+	}
+	return;
+}
+
 void printchar(void) // 문자열 출력함수
 {
 	for (int i = 0; i < 16; i++)
 	{
-		printf("%s", Arr[i]);
+		printf("%s", StringArr[i]);
 		if (i < 15)
 		printf(", ");
 		else
@@ -45,12 +57,13 @@ void printchar(void) // 문자열 출력함수
 
 void ascending(void) //오름차순 정렬함수
 {
+	intchar();//정렬할 배열 가져옴
 	char TempArr[1][13];
 	for (int a = 1; a < 16; a++)
 	{
 		for (int k = 0; k < 13; k++) //현재 삽입할 문자열을 TempArr에 저장
 		{
-			TempArr[0][k] = Arr[a][k];
+			TempArr[0][k] = StringArr[a][k];
 		}
 
 		//TempArr에 저장된 문자열이 있던 위치에서부터 앞으로 순차적으로 비교
@@ -62,23 +75,23 @@ void ascending(void) //오름차순 정렬함수
 			{
 				for (int p = 0; p < 13; p++)
 				{
-					Arr[num + 1][p] = TempArr[0][p];
+					StringArr[num + 1][p] = TempArr[0][p];
 				}
 				break;
 			}
-			else if (Arr[num][step] > TempArr[0][step])
+			else if (StringArr[num][step] > TempArr[0][step])
 			{
 				back(num);
 				num--;
 				step = -1;
 			}
-			else if (Arr[num][step] == TempArr[0][step])
+			else if (StringArr[num][step] == TempArr[0][step])
 				continue;
 			else
 			{
 				for (int p = 0; p < 13; p++)
 				{
-					Arr[num + 1][p] = TempArr[0][p];
+					StringArr[num + 1][p] = TempArr[0][p];
 				}
 				break;
 			}
@@ -89,12 +102,13 @@ void ascending(void) //오름차순 정렬함수
 
 void descending(void) //내림차순 정렬함수
 {
+	intchar();//정렬할 배열 가져옴
 	char TempArr[1][13];
 	for (int a = 1; a < 16; a++)
 	{
 		for (int k = 0; k < 13; k++) //현재 삽입할 문자열을 TempArr에 저장
 		{
-			TempArr[0][k] = Arr[a][k];
+			TempArr[0][k] = StringArr[a][k];
 		}
 
 		//TempArr에 저장된 문자열이 있던 위치에서부터 앞으로 순차적으로 비교
@@ -106,23 +120,23 @@ void descending(void) //내림차순 정렬함수
 			{
 				for (int p = 0; p < 13; p++)
 				{
-					Arr[num + 1][p] = TempArr[0][p];
+					StringArr[num + 1][p] = TempArr[0][p];
 				}
 				break;
 			}
-			else if (Arr[num][step] < TempArr[0][step])
+			else if (StringArr[num][step] < TempArr[0][step])
 			{
 				back(num);
 				num--;
 				step = -1;
 			}
-			else if (Arr[num][step] == TempArr[0][step])
+			else if (StringArr[num][step] == TempArr[0][step])
 				continue;
 			else
 			{
 				for (int p = 0; p < 13; p++)
 				{
-					Arr[num + 1][p] = TempArr[0][p];
+					StringArr[num + 1][p] = TempArr[0][p];
 				}
 				break;
 			}
@@ -135,7 +149,7 @@ void back(int num) //문자열을 현재 위치에서 한 칸 뒤로 이동
 {
 	for (int step = 0; step < 13; step++)
 	{
-		Arr[num + 1][step] = Arr[num][step];
+		StringArr[num + 1][step] = StringArr[num][step];
 	}
 	return;
 }
